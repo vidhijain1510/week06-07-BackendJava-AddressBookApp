@@ -1,5 +1,6 @@
 package com.capgemini.addressbookapp.controller;
 
+import com.capgemini.addressbookapp.dto.AddressBookDTO;
 import com.capgemini.addressbookapp.model.AddressBook;
 import com.capgemini.addressbookapp.service.AddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class AddressBookController {
     private AddressBookService service;
 
     @PostMapping("/add")
-    public ResponseEntity<AddressBook> addEntry(@RequestBody AddressBook addressBook) {
+    public ResponseEntity<AddressBook> addEntry(@RequestBody AddressBookDTO addressBook) {
         return ResponseEntity.ok(service.saveEntry(addressBook));
     }
 
@@ -27,14 +28,14 @@ public class AddressBookController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<AddressBook> getEntryById(@PathVariable Long id) {
-        return service.getEntryById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+        AddressBook addressBook = service.getEntryById(id);
+        return (addressBook!=null)? ResponseEntity.ok(addressBook):ResponseEntity.notFound().build();
 
+    }
     @PutMapping("/update/{id}")
-    public ResponseEntity<AddressBook> updateEntry(@PathVariable Long id, @RequestBody AddressBook newEntry) {
-        return ResponseEntity.ok(service.updateEntry(id, newEntry));
+    public ResponseEntity<AddressBook> updateEntry(@PathVariable Long id, @RequestBody AddressBookDTO newEntry) {
+        AddressBook addressBook = service.updateAddressBook(id, newEntry);
+        return (addressBook!=null)?ResponseEntity.ok(addressBook):ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/delete/{id}")
