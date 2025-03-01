@@ -16,7 +16,11 @@ public class AddressBookService {
     private AddressBookRepository repository;
 
     public AddressBook saveEntry(AddressBookDTO addressBookDTO) {
-        AddressBook addressBook = new AddressBook(addressBookDTO);
+        AddressBook addressBook = new AddressBook();
+        addressBook.setName(addressBookDTO.getName());
+        addressBook.setPhoneNumber(addressBookDTO.getPhoneNumber());
+        addressBook.setEmail(addressBookDTO.getEmail());
+        addressBook.setAddress(addressBookDTO.getAddress());
         return repository.save(addressBook);
     }
 

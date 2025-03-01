@@ -1,6 +1,6 @@
 package com.capgemini.addressbookapp.model;
 
-import com.capgemini.addressbookapp.dto.AddressBookDTO;
+import      com.capgemini.addressbookapp.dto.AddressBookDTO;
 import jakarta.persistence.*;
 
 

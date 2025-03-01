@@ -17,8 +17,9 @@ public class AddressBookController {
     private AddressBookService service;
 
     @PostMapping("/add")
-    public ResponseEntity<AddressBook> addEntry(@RequestBody AddressBookDTO addressBook) {
-        return ResponseEntity.ok(service.saveEntry(addressBook));
+    public ResponseEntity<AddressBook> addEntry(@RequestBody AddressBookDTO addressBookDTO) {
+        AddressBook savedEntry = service.saveEntry(addressBookDTO);
+        return ResponseEntity.ok(savedEntry);
     }
 
     @GetMapping("/all")
