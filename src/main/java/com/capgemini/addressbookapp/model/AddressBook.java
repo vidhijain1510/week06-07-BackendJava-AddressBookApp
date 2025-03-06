@@ -23,5 +23,8 @@ public class AddressBook {
     private String phoneNumber;
     private String email;
     private String address;
+    private String city;
+    private String state;
+    private String zipcode;
 
 }

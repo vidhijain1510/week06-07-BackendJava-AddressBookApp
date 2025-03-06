@@ -24,6 +24,9 @@ public class AddressBookService {
         addressBook.setPhoneNumber(addressBookDTO.getPhoneNumber());
         addressBook.setEmail(addressBookDTO.getEmail());
         addressBook.setAddress(addressBookDTO.getAddress());
+        addressBook.setCity(addressBookDTO.getCity());
+        addressBook.setState(addressBookDTO.getState());
+        addressBook.setZipcode(addressBookDTO.getZipcode());
         return repository.save(addressBook);
     }
 
@@ -44,6 +47,9 @@ public class AddressBookService {
         addressBook.setPhoneNumber(addressBookDTO.getPhoneNumber());
         addressBook.setEmail(addressBookDTO.getEmail());
         addressBook.setAddress(addressBookDTO.getAddress());
+        addressBook.setCity(addressBookDTO.getCity());
+        addressBook.setState(addressBookDTO.getState());
+        addressBook.setZipcode(addressBookDTO.getZipcode());
         return repository.save(addressBook);
     }
 
