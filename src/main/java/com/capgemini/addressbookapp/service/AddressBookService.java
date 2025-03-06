@@ -3,6 +3,7 @@ package com.capgemini.addressbookapp.service;
 import com.capgemini.addressbookapp.dto.AddressBookDTO;
 import  com.capgemini.addressbookapp.model.AddressBook;
 import com.capgemini.addressbookapp.repository.AddressBookRepository;
+import com.capgemini.addressbookapp.validations.AddressBookException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,26 +32,26 @@ public class AddressBookService {
     }
 
     public AddressBook getEntryById(Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id)
+                .orElseThrow(() -> new AddressBookException("Address Book entry with ID " + id + " not found"));
     }
 
     public AddressBook updateAddressBook(Long id, AddressBookDTO addressBookDTO) {
-        Optional<AddressBook> existingEntry = repository.findById(id);
+        AddressBook addressBook = repository.findById(id)
+                .orElseThrow(() -> new AddressBookException("Address Book entry with ID " + id + " not found"));
 
-        if (existingEntry.isPresent()) {
-            AddressBook addressBook = existingEntry.get();
-            addressBook.setName(addressBookDTO.getName());
-            addressBook.setPhoneNumber(addressBookDTO.getPhoneNumber());
-            addressBook.setEmail(addressBookDTO.getEmail());
-            addressBook.setAddress(addressBookDTO.getAddress());
-            return repository.save(addressBook);
-        } else {
-            throw new RuntimeException("AddressBook entry with ID " + id + " not found");
-        }
+        addressBook.setName(addressBookDTO.getName());
+        addressBook.setPhoneNumber(addressBookDTO.getPhoneNumber());
+        addressBook.setEmail(addressBookDTO.getEmail());
+        addressBook.setAddress(addressBookDTO.getAddress());
+        return repository.save(addressBook);
     }
 
     public void deleteEntry(Long id) {
-        repository.deleteById(id);
+        AddressBook addressBook = repository.findById(id)
+                .orElseThrow(() -> new AddressBookException("Address Book entry with ID " + id + " not found"));
+
+        repository.delete(addressBook);
     }
 
     /*private final List<AddressBook> addressBookList = new ArrayList<>();

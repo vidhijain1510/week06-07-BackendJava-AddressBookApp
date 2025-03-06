@@ -17,6 +17,10 @@ public class AddressBookController {
     @Autowired
     private AddressBookService service;
 
+    @PostMapping("/add")
+    public ResponseEntity<AddressBook> addEntry(@Valid @RequestBody AddressBookDTO addressBookDTO) {
+        return ResponseEntity.ok(service.saveEntry(addressBookDTO));
+    }
 
     @GetMapping("/all")
     public ResponseEntity<List<AddressBook>> getAllEntries() {
@@ -25,21 +29,14 @@ public class AddressBookController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<AddressBook> getEntryById(@PathVariable Long id) {
-        AddressBook addressBook = service.getEntryById(id);
-        return (addressBook!=null)? ResponseEntity.ok(addressBook):ResponseEntity.notFound().build();
-
-    }
-    @PostMapping("/add")
-    public ResponseEntity<AddressBook> addEntry(@Valid @RequestBody AddressBookDTO addressBookDTO) {
-        AddressBook savedEntry = service.saveEntry(addressBookDTO);
-        return ResponseEntity.ok(savedEntry);
+        return ResponseEntity.ok(service.getEntryById(id));
     }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<AddressBook> updateEntry(@PathVariable Long id, @Valid @RequestBody AddressBookDTO newEntry) {
-        AddressBook addressBook = service.updateAddressBook(id, newEntry);
-        return (addressBook != null) ? ResponseEntity.ok(addressBook) : ResponseEntity.notFound().build();
+        return ResponseEntity.ok(service.updateAddressBook(id, newEntry));
     }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteEntry(@PathVariable Long id) {
         service.deleteEntry(id);
