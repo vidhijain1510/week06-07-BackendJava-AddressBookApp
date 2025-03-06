@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AddressBookDTO {
-    @NotBlank(message = "Name is required") // Ensures the field is not empty
-    @Pattern(regexp = "^[A-Z][a-zA-Z\\s]{2,}$", message = "Name must start with a capital letter and be at least 3 characters long")
+    @NotBlank(message = "Name cannot be empty")
+    @Pattern(regexp = "^[A-Z][a-zA-Z\\s]{2,}$", message = "Name can't be empty")
     private String name;
 
     private String phoneNumber;
