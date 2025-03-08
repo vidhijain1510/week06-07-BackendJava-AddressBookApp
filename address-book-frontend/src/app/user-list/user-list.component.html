@@ -1,0 +1,41 @@
+<div class="container">
+    <div class="header">
+        <img src="assests/addressBookLogo.png" alt="AddressBookLogo" class = "addressBookLogo">
+    </div>
+    <h2>Person Details</h2>
+    <div class="button-container">
+        <button class="btn btn-primary">+Add Person</button>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>FullName</th>   
+          <th>Address</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Zipcode</th>
+          <th>Phone Number</th> 
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of users; track user.id; let i = $index) {
+          <tr> 
+            <td>{{ user.name }}</td>
+            <td>{{ user.address }}</td>
+            <td>{{ user.city }}</td>
+            <td>{{ user.state }}</td>
+            <td>{{ user.zipcode }}</td>
+            <td>{{ user.phoneNumber }}</td>
+            <td>
+              <button class="btn btn-warning" (click)="editUser(user.id)">✎</button>
+              <button class="btn btn-danger" (click)="deleteUser(user.id)">🗑️</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+      
+    </table>
+  </div>
+
